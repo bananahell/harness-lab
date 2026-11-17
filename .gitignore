@@ -4,3 +4,4 @@ vendor/
 .php-cs-fixer.cache
 .phpunit.cache/
 .phpunit.result.cache
+web/dist/
