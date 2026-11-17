@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo
+echo "=================================="
+echo "Running harness checks..."
+echo "=================================="
+echo
+
+make check
+
+echo
+echo "=================================="
+echo "Harness passed."
+echo "Commit allowed."
+echo "=================================="
+echo

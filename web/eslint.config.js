@@ -23,6 +23,7 @@ module.exports = defineConfig([
           style: 'camelCase',
         },
       ],
+
       '@angular-eslint/component-selector': [
         'error',
         {
@@ -31,11 +32,32 @@ module.exports = defineConfig([
           style: 'kebab-case',
         },
       ],
+
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/no-inferrable-types': 'off',
+
+      'no-console': ['error', { allow: ['error'] }],
+      'no-debugger': 'error',
     },
   },
+
   {
     files: ['**/*.html'],
-    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
+    extends: [
+      angular.configs.templateRecommended,
+      angular.configs.templateAccessibility,
+    ],
     rules: {},
   },
 ]);
