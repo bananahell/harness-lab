@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\HealthStatus;
-use App\Task;
+use App\TaskRepository;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -18,13 +18,14 @@ if (!is_string($requestUri)) {
 $path = parse_url($requestUri, PHP_URL_PATH);
 
 if ($path === '/tasks') {
-    echo json_encode([
-        (new Task(
-            id: 1,
-            title: 'Learn harness engineering',
-            completed: false,
-        ))->toArray(),
-    ]);
+    $repository = new TaskRepository();
+
+    echo json_encode(
+        array_map(
+            static fn ($task): array => $task->toArray(),
+            $repository->all(),
+        ),
+    );
 
     exit;
 }
