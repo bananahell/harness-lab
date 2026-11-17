@@ -17,19 +17,6 @@ if (!is_string($requestUri)) {
 
 $path = parse_url($requestUri, PHP_URL_PATH);
 
-if ($path === '/tasks') {
-    $repository = new TaskRepository();
-
-    echo json_encode(
-        array_map(
-            static fn ($task): array => $task->toArray(),
-            $repository->all(),
-        ),
-    );
-
-    exit;
-}
-
 try {
     $host = getenv('DB_HOST');
     $password = getenv('DB_PASSWORD');
@@ -39,10 +26,23 @@ try {
     }
 
     $pdo = new PDO(
-        "sqlsrv:Server={$host},1433;TrustServerCertificate=1",
+        "sqlsrv:Server={$host},1433;Database=HarnessLab;TrustServerCertificate=1",
         'sa',
         $password,
     );
+
+    if ($path === '/tasks') {
+        $repository = new TaskRepository($pdo);
+
+        echo json_encode(
+            array_map(
+                static fn ($task): array => $task->toArray(),
+                $repository->all(),
+            ),
+        );
+
+        exit;
+    }
 
     $statement = $pdo->query('SELECT @@VERSION');
 
