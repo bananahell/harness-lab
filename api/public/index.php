@@ -16,6 +16,32 @@ if (!is_string($requestUri)) {
 }
 
 $path = parse_url($requestUri, PHP_URL_PATH);
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
+if (!is_string($requestMethod)) {
+    throw new RuntimeException('REQUEST_METHOD must be a string');
+}
+
+if ($path !== '/' && $path !== '/tasks') {
+    http_response_code(404);
+
+    echo json_encode(
+        HealthStatus::error('Not Found'),
+    );
+
+    return;
+}
+
+if ($requestMethod !== 'GET') {
+    header('Allow: GET');
+    http_response_code(405);
+
+    echo json_encode(
+        HealthStatus::error('Method Not Allowed'),
+    );
+
+    return;
+}
 
 try {
     $host = getenv('DB_HOST');
