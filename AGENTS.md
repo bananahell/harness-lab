@@ -71,3 +71,8 @@ to `make check` so it cannot happen a third time.
 These files define the checks. Do not edit them unless the task explicitly asks for it:
 `Makefile`, `.githooks/`, `.github/`, `.editorconfig`, `api/phpstan.neon`, `api/.php-cs-fixer.dist.php`, `api/phpunit.xml.dist`, `api/composer.json` scripts, `web/eslint.config.js`.
 If a check seems wrong, say so and stop instead of changing it.
+
+## Git
+
+- Do not run `git add`, `git commit`, `git push`, `git stash`, or change branches. The human reviews the diff and commits.
+- Do not run destructive git commands (`reset`, `clean`, `checkout -- <file>`).
