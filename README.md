@@ -9,32 +9,28 @@ A small project used to learn harness engineering.
 - SQL Server database
 - Docker
 
+## Setup (once per clone)
+
+    cp .env.example .env    # then set your own DB_PASSWORD
+    make hooks
+
 ## Start the environment
 
-docker compose -f docker-compose.yml build --no-cache && docker compose -f docker-compose.yml up --build
+    docker compose up -d --build
 
 ## Initialize the database
 
-make db-init
+    make db-init
 
 ## Verify the project
 
-make check
+    make check
 
 ## Endpoints
 
-Health check:
+- Health check: http://localhost:8080
+- Tasks: http://localhost:8080/tasks
 
-http://localhost:8080
+## Harness rules
 
-Tasks:
-
-http://localhost:8080/tasks
-
-## Harness Rules
-
-A task is not complete until:
-
-make check
-
-passes successfully.
+See `AGENTS.md`. Definition of done: `make check` passes.

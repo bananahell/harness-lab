@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use App\TaskRepository;
 use PDO;
 use PHPUnit\Framework\TestCase;
 
 final class TaskRepositoryIntegrationTest extends TestCase
 {
-    public function testDatabaseContainsSeedTask(): void
+    public function testAllReturnsSeedTask(): void
     {
         $host = getenv('DB_HOST');
         $password = getenv('DB_PASSWORD');
@@ -23,14 +24,10 @@ final class TaskRepositoryIntegrationTest extends TestCase
             $password,
         );
 
-        $statement = $pdo->query(
-            'SELECT COUNT(*) FROM tasks',
-        );
+        $tasks = (new TaskRepository($pdo))->all();
 
-        self::assertNotFalse($statement);
-
-        $count = $statement->fetchColumn();
-
-        self::assertSame(1, (int) $count);
+        self::assertCount(1, $tasks);
+        self::assertSame('Learn harness engineering', $tasks[0]->title);
+        self::assertFalse($tasks[0]->completed);
     }
 }

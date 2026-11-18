@@ -34,7 +34,7 @@ final readonly class TaskRepository
                 $row['title'],
                 $row['completed'],
             )) {
-                continue;
+                throw new RuntimeException('Malformed task row');
             }
 
             $id = $row['id'];
@@ -46,7 +46,7 @@ final readonly class TaskRepository
                 !is_scalar($title) ||
                 !is_scalar($completed)
             ) {
-                continue;
+                throw new RuntimeException('Malformed task row');
             }
 
             $tasks[] = new Task(
