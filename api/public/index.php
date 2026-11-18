@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\HealthStatus;
 use App\TaskRepository;
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 header('Content-Type: application/json');
 
@@ -22,7 +22,7 @@ if (!is_string($requestMethod)) {
     throw new RuntimeException('REQUEST_METHOD must be a string');
 }
 
-if ($path !== '/' && $path !== '/tasks') {
+if ('/' !== $path && '/tasks' !== $path) {
     http_response_code(404);
 
     echo json_encode(
@@ -32,7 +32,7 @@ if ($path !== '/' && $path !== '/tasks') {
     return;
 }
 
-if ($requestMethod !== 'GET') {
+if ('GET' !== $requestMethod) {
     header('Allow: GET');
     http_response_code(405);
 
@@ -47,7 +47,7 @@ try {
     $host = getenv('DB_HOST');
     $password = getenv('DB_PASSWORD');
 
-    if ($host === false || $password === false) {
+    if (false === $host || false === $password) {
         throw new RuntimeException('DB_HOST and DB_PASSWORD must be set');
     }
 
@@ -57,7 +57,7 @@ try {
         $password,
     );
 
-    if ($path === '/tasks') {
+    if ('/tasks' === $path) {
         $repository = new TaskRepository($pdo);
 
         echo json_encode(
@@ -72,7 +72,7 @@ try {
 
     $statement = $pdo->query('SELECT @@VERSION');
 
-    if ($statement === false) {
+    if (false === $statement) {
         throw new RuntimeException('Version query failed');
     }
 

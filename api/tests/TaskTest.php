@@ -7,6 +7,9 @@ namespace Tests;
 use App\Task;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class TaskTest extends TestCase
 {
     public function testTaskCanBeConvertedToArray(): void

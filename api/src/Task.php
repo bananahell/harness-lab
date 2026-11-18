@@ -10,8 +10,7 @@ final readonly class Task
         public int $id,
         public string $title,
         public bool $completed,
-    ) {
-    }
+    ) {}
 
     /** @return array{id:int,title:string,completed:bool} */
     public function toArray(): array

@@ -6,6 +6,9 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class RouteTest extends TestCase
 {
     public function testUnknownRouteReturnsJsonNotFound(): void
@@ -55,25 +58,25 @@ final class RouteTest extends TestCase
         ob_start();
 
         try {
-            include __DIR__ . '/../public/index.php';
+            include __DIR__.'/../public/index.php';
             $body = ob_get_contents();
             $status = http_response_code();
         } finally {
             ob_end_clean();
 
-            if (is_int($previousStatus)) {
+            if (\is_int($previousStatus)) {
                 http_response_code($previousStatus);
             } else {
                 http_response_code(200);
             }
 
-            if ($previousMethod === null) {
+            if (null === $previousMethod) {
                 unset($_SERVER['REQUEST_METHOD']);
             } else {
                 $_SERVER['REQUEST_METHOD'] = $previousMethod;
             }
 
-            if ($previousUri === null) {
+            if (null === $previousUri) {
                 unset($_SERVER['REQUEST_URI']);
             } else {
                 $_SERVER['REQUEST_URI'] = $previousUri;

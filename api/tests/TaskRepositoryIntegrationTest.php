@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\TaskRepository;
-use PDO;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class TaskRepositoryIntegrationTest extends TestCase
 {
     public function testAllReturnsSeedTask(): void
@@ -18,7 +20,7 @@ final class TaskRepositoryIntegrationTest extends TestCase
         self::assertIsString($host);
         self::assertIsString($password);
 
-        $pdo = new PDO(
+        $pdo = new \PDO(
             "sqlsrv:Server={$host},1433;Database=HarnessLab;TrustServerCertificate=1",
             'sa',
             $password,

@@ -54,3 +54,20 @@ If you change the seed or schema, update the tests in the same change.
 
 If the same mistake has to be corrected twice, add a rule here or a check
 to `make check` so it cannot happen a third time.
+
+## Environment
+
+- All PHP tooling runs inside Docker through `make` targets. The PHP installed on the host machine is not this project's PHP: never run `php`, `composer`, or `phpunit` directly on the host.
+- Docker must be running before any `make` target.
+
+## Code quality bar
+
+- Zero warnings: `make check` must pass with no suppressions. Do not add `@phpstan-ignore`, `@codeCoverageIgnore`, ignore rules, baselines, or `markTestSkipped`.
+- Fix problems in the code, never by loosening the tool configuration.
+- Before finishing, open the VS Code Problems panel and fix any warning in the files you touched. These come from the editor's language server and are not covered by `make check`.
+
+## Harness files
+
+These files define the checks. Do not edit them unless the task explicitly asks for it:
+`Makefile`, `.githooks/`, `.github/`, `.editorconfig`, `api/phpstan.neon`, `api/.php-cs-fixer.dist.php`, `api/phpunit.xml.dist`, `api/composer.json` scripts, `web/eslint.config.js`.
+If a check seems wrong, say so and stop instead of changing it.

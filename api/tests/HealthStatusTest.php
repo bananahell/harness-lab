@@ -7,6 +7,9 @@ namespace Tests;
 use App\HealthStatus;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class HealthStatusTest extends TestCase
 {
     public function testOkContainsDatabaseVersion(): void
